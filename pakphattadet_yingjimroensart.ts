@@ -1,3 +1,39 @@
+function quickestPath(
+  portals: { location: number; destination: number }[]
+): number {
+    
+  const warp = new Map<number, number>();
+  portals.forEach((item) => {
+    warp.set(item.location, item.location);
+  });
+
+  const positionDuplicate = Array(201).fill(false);
+  positionDuplicate[1] = true;
+
+  const q = [{ position: 1, turn: 0 }];
+
+  for (let i = 0; i < q.length; i++) {
+    const now = q[i];
+
+    for (let step = 1; step <= 11; step++) {
+      let next = now.position + step;
+
+      if (warp[next]) {
+        next = warp[next];
+      }
+
+      if (next === 200) {
+        return now.turn + 1;
+      }
+
+      if (next > 200) continue;
+      
+    }
+  }
+
+  return -1;
+}
+
 const portals = [
   { location: 55, destination: 38 },
   { location: 14, destination: 35 },
@@ -19,17 +55,4 @@ const portals = [
   { location: 180, destination: 200 },
 ];
 
-quickestPath(portals);
-
-function quickestPath(portals: { location: number; destination: number }[]): number {
-    portals.map(item => item.destination)
-
-    return 0;
-}
-
-// random location 1-11
-//
-
-function quickestPath2({ protals: {location: number}}) {
-    
-}
+console.log(quickestPath(portals));
